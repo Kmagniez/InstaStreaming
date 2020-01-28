@@ -5,41 +5,19 @@
 {% block body %}
     <h1>Movie index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Image</th>
-                <th>ReleaseDate</th>
-                <th>Note</th>
-                <th>ImdbID</th>
-                <th>Overview</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
         {% for movie in movies %}
-            <tr>
-                <td>{{ movie.id }}</td>
-                <td>{{ movie.title }}</td>
-                <td>{{ movie.image }}</td>
-                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ movie.note }}</td>
-                <td>{{ movie.imdbID }}</td>
-                <td>{{ movie.overview }}</td>
-                <td>
-                    <a href="{{ path('movie_show', {'id': movie.id}) }}">show</a>
-                    <a href="{{ path('movie_edit', {'id': movie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+
+            <div class="card" style="width: 18rem;">
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.image }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
         {% endfor %}
-        </tbody>
-    </table>
+
 
     <a href="{{ path('movie_new') }}">Create new</a>
 {% endblock %}
