@@ -68,39 +68,57 @@ class ImportDataCommand extends Command
         $em = $this->container->get('doctrine')->getManager();
 
 
-        $nbMoviesCreated = 0;
-        foreach ($responseContent->results as $r){
 
+        foreach ($responseContent->results as $r){
+            
             dump($r);
 
-        	if ($r->media_type == "movie"){
-
-        		// Si on ne trouve pas le film par son identifiant IMDB
-        		if (!$this->movieRepo->findOneBy(['imdbID' => $r->id])){
-
-                    // Création d'un film
-                    $movie = new Movie();
-                    $movie->setTitle($r->title);
-                    $movie->setImage($r->poster_path);
-                    $movie->setReleaseDate(New \DateTime($r->release_date));
-                    $movie->setNote($r->vote_average);
-                    $movie->setImdbID($r->id);
-                    $movie->setOverview($r->overview);
-                    $em->persist($movie);
-
-
-                    // Incrémentation du compteur
-                    $nbMoviesCreated++;
-                        
-                    
-
-				}
-			}
-		}
+            $this->ImportMovie($r, $io, $em);
+        }
+        
         $em->flush();
 
-        $io->success($nbMoviesCreated . ' films ont été créés :)');
+
 
         return 0;
     }
+
+
+
+    Function ImportMovie($r, $io, $em){
+
+        
+
+        $nbMoviesCreated = 0;
+
+        if ($r->media_type == "movie"){
+
+            // Si on ne trouve pas le film par son identifiant IMDB
+            if (!$this->movieRepo->findOneBy(['imdbID' => $r->id])){
+
+                // Création d'un film
+                $movie = new Movie();
+                $movie->setTitle($r->title);
+                $movie->setImage($r->poster_path);
+                $movie->setReleaseDate(New \DateTime($r->release_date));
+                $movie->setNote($r->vote_average);
+                $movie->setImdbID($r->id);
+                $movie->setOverview($r->overview);
+                $em->persist($movie);
+
+
+                // Incrémentation du compteur
+                $nbMoviesCreated++;                      
+
+            }
+        }
+
+        $io->success($nbMoviesCreated . ' films ont été créés :)');
+    }
+
+    Function ImportGenre(){
+
+
+    }
+
 }

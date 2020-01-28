@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class Movie
      * @ORM\Column(type="text")
      */
     private $overview;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\GenreMovie", inversedBy="Movies")
+     */
+    private $Genres;
+
+    public function __construct()
+    {
+        $this->Genres = new ArrayCollection();
+    }
 
 
     public function __contruct($title, $image, $releaseDate, $note, $imdbID, $overview){
@@ -130,6 +142,32 @@ class Movie
     public function setOverview(string $overview): self
     {
         $this->overview = $overview;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GenreMovie[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->Genres;
+    }
+
+    public function addGenre(GenreMovie $genre): self
+    {
+        if (!$this->Genres->contains($genre)) {
+            $this->Genres[] = $genre;
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(GenreMovie $genre): self
+    {
+        if ($this->Genres->contains($genre)) {
+            $this->Genres->removeElement($genre);
+        }
 
         return $this;
     }
