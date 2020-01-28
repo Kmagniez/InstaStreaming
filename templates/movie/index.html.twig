@@ -3,21 +3,37 @@
 {% block title %}Movie index{% endblock %}
 
 {% block body %}
+
+
+
     <h1>Movie index</h1>
 
-        {% for movie in movies %}
 
-            <div class="card" style="width: 18rem;">
-                <img src="https://image.tmdb.org/t/p/w500{{ movie.image }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ movie.title }}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row ">
 
-        {% endfor %}
+            {% for movie in movies %}
+
+                    <div class="col-sm mb-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="https://image.tmdb.org/t/p/w500{{ movie.image }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ movie.title }}</h5>
+                                <p class="card-text">{{ movie.overview }}</p>
+                                <a href="{{ path('movie_show', {id:movie.id}) }}" class="btn btn-warning mx-auto">Voir</a>
+                                <p class="card-test">
+                                {% for genre in movie.genres %}
+                                    <a>{{ genre.name }}</a>{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
 
 
-    <a href="{{ path('movie_new') }}">Create new</a>
+    {# <a href="{{ path('movie_new') }}">Create new</a> #}
 {% endblock %}

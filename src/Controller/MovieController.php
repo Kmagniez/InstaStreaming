@@ -91,4 +91,12 @@ class MovieController extends AbstractController
 
         return $this->redirectToRoute('movie_index');
     }
+
+    /**
+     * @Route("/{id}", name="movie_research", methods={"GET"})
+     */
+    public function rechercher(Request $request, Movie $movie){
+
+
+    }
 }
