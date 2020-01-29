@@ -6,3 +6,18 @@ $primary: darken(#428bca, 20%);
 // the ~ allows you to reference things in node_modules
 @import "bootstrap/scss/bootstrap.scss";
 
+body{
+
+    background-color: rgb(218, 211, 209);
+}
+
+.card-text{
+    max-height: 200px;
+    height: 200px;
+    overflow: auto;
+}
+
+.messageConnecte {
+
+    color: white;
+}

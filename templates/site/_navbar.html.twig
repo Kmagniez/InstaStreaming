@@ -1,0 +1,33 @@
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand">InstaStreaming</a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto mx-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site') }}">Accueil <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('movie_index') }}">Films</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Séries</a>
+                        </li>
+
+
+                    </ul>
+                    
+                    <div class="form-inline my-2 my-lg-0">
+                    {% if(app.user is null) %}
+                        <a class="btn btn-warning my-2 my-sm-0" href="{{ path('app_login') }}">Se connecter</a>
+                        <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ path('app_register') }}">S'inscrire</a>
+                    {% else %}
+                        <a class="btn btn-warning my-2 my-sm-0 ml-2" href="#">profil</a>
+                        <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {% endif %}
+                    </div>
+
+                </div>
+            </nav>

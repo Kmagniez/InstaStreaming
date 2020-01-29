@@ -16,5 +16,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "jquery": "^3.4.1",
+        "popper.js": "^1.16.1"
+    }
 }
