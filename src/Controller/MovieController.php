@@ -7,6 +7,7 @@ use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\GenreMovieRepository;
 use App\Repository\MovieRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +40,11 @@ class MovieController extends AbstractController
     /**
      * @Route("/", name="movie_index", methods={"GET"})
      */
-    public function index(MovieRepository $movieRepository, GenreMovieRepository $genreMovieRepository): Response
+    public function index(MovieRepository $movieRepository, GenreMovieRepository $genreMovieRepository,$page, PaginatorInterface $paginator): Response
     {
+        $query=$movieRepository->createQueryBuilder('m')->getQuery;
+        $pagination=$paginator->paginate($query, $page, 5);
+
         return $this->render('movie/index.html.twig', [
             'movies' => $movieRepository->findAll(),
             'genres' => $genreMovieRepository->findAll()

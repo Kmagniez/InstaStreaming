@@ -21,30 +21,38 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 
 
     <div class="container-fluid">
+
         <div class="row align-items-stretch">
 
             {% for movie in movies %}
-
                     <div class="col-3 mb-3">
                         <div class="card h-100">
                             <img src="https://image.tmdb.org/t/p/w500{{ movie.image }}" class="card-img-top" alt="...">
+
+                            {% if app.user %}
+                                {% set movieClass='far' %}
+                                {% if movie in app.user.movies %}
+                                    {% set movieClass = 'fas' %}
+                                {% endif %}
+                                    <i class="{{ movieClass }} fa-star movie-fav"  data-id="{{ movie.id }}"></i>
+                            {% endif %}
+
                             <div class="card-body position-relative">
                                 <h5 class="card-title">{{ movie.title }}</h5>
                                 <p class="card-text" style="margin-bottom:70px">{{ movie.overview }}</p>
                                 <div class="position-absolute" style="bottom:3px">
+
                                     {% for genre in movie.genres %}
                                         <a>{{ genre.name }}</a>{% if not loop.last %}, {% endif %}
                                     {% endfor %}
-                                    <p class="card-test">
-                                        <a href="{{ path('movie_show', {id:movie.id}) }}" class="btn btn-warning mx-auto">Voir</a>
+
+                                    <p class="card-test my-flex align-middle">
+                                        <a href="{{ path('movie_show', {id:movie.id}) }}" class="btn btn-warning mx-auto">Voir</a>                                      
                                     </p>
                                 </div>
                             </div>
@@ -56,6 +64,4 @@
         </div>
     </div>
 
-
-    {# <a href="{{ path('movie_new') }}">Create new</a> #}
 {% endblock %}

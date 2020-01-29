@@ -29,7 +29,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/movie/add/favourite/{id}", name="add_favourite_movie", options={"expose=true"})
+     * @Route("/movie/add/favourite/{id}", name="add_favourite_movie", options={"expose"=true})
      */
     public function addFavoriteMovie(Movie $movie): Response{
 
@@ -39,13 +39,12 @@ class UserController extends AbstractController
         $user=$this->getUser();
         if (!$user->getMovies()->contains($movie)){
             $user->addMovie($movie);
-            $message='added ';
+            $message='added';
         }else{
             $user->removeMovie($movie);
-            $message='removed ';
+            $message='removed';
         }
         
-        $message.=$movie->getTitle();
         $em=$this->getDoctrine()->getManager();
         $em->persist($user);
         $em->persist($movie);
